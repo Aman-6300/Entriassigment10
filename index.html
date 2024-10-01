@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <h1 class="mb-4 text-center text-primary">Personal Budget Tracker</h1>
+        <div class="row g-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-success">Add Income</h5>
+                        <form id="income-form">
+                            <div class="mb-3">
+                                <label for="income-amount" class="form-label">Income Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="income-amount" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">Add Income</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-danger">Add Expense</h5>
+                        <form id="expense-form">
+                            <div class="mb-3">
+                                <label for="expense-description" class="form-label">Expense Description</label>
+                                <input type="text" class="form-control" id="expense-description" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expense-amount" class="form-label">Expense Amount</label>
+                                <div class="input-group">
+                                    <span class="input-group-text">$</span>
+                                    <input type="number" class="form-control" id="expense-amount" required>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="expense-category" class="form-label">Expense Category</label>
+                                <select class="form-select" id="expense-category" required>
+                                    <option value="">Select a category</option>
+                                    <option value="Food">Food</option>
+                                    <option value="Transportation">Transportation</option>
+                                    <option value="Utilities">Utilities</option>
+                                    <option value="Entertainment">Entertainment</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-danger w-100">Add Expense</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">Budget Summary</h5>
+                        <div id="budget-summary">
+                            <div class="d-flex justify-content-between">
+                                <span>Total Income:</span>
+                                <span class="text-success">$<span id="total-income">0.00</span></span>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <span>Total Expenses:</span>
+                                <span class="text-danger">$<span id="total-expenses">0.00</span></span>
+                            </div>
+                            <hr>
+                            <div class="d-flex justify-content-between fw-bold">
+                                <span>Remaining Budget:</span>
+                                <span id="remaining-budget-container">$<span id="remaining-budget">0.00</span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title text-primary">Expense List</h5>
+                        <ul id="expense-list" class="list-group"></ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>

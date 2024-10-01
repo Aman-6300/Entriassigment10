@@ -1,5 +1,7 @@
 let totalIncome = 0;
 let totalExpenses = 0;
+let expenses = [];
+let sortDirection = 'asc';
 
 document.getElementById('income-form').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -15,10 +17,14 @@ document.getElementById('expense-form').addEventListener('submit', function(e) {
     const expenseDescription = document.getElementById('expense-description').value;
     const expenseAmount = parseFloat(document.getElementById('expense-amount').value);
     const expenseCategory = document.getElementById('expense-category').value;
-    
+
     totalExpenses += expenseAmount;
     updateBudgetSummary();
-    addExpenseToList(expenseDescription, expenseAmount, expenseCategory);
+
+    const expense = { description: expenseDescription, amount: expenseAmount, category: expenseCategory };
+    expenses.push(expense);
+
+    updateExpenseTable();
     this.reset();
     showToast('Expense added successfully!', 'bg-danger');
 });
@@ -32,18 +38,33 @@ function updateBudgetSummary() {
     remainingBudgetContainer.className = remainingBudget >= 0 ? 'text-success' : 'text-danger';
 }
 
-function addExpenseToList(description, amount, category) {
-    const expenseList = document.getElementById('expense-list');
-    const li = document.createElement('li');
-    li.className = 'list-group-item d-flex justify-content-between align-items-center';
-    li.innerHTML = `
-        <div>
-            <strong>${description}</strong>
-            <span class="badge bg-secondary ms-2">${category}</span>
-        </div>
-        <span class="badge bg-danger rounded-pill">$${amount.toFixed(2)}</span>
-    `;
-    expenseList.appendChild(li);
+function updateExpenseTable(filteredExpenses = expenses) {
+    const expenseTableBody = document.getElementById('expense-table-body');
+    expenseTableBody.innerHTML = '';
+
+    filteredExpenses.forEach(expense => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${expense.description}</td>
+            <td>${expense.category}</td>
+            <td>₹${expense.amount.toFixed(2)}</td>
+        `;
+        expenseTableBody.appendChild(row);
+    });
+}
+
+function filterExpenses() {
+    const filterCategory = document.getElementById('filter-category').value;
+    const filteredExpenses = filterCategory ? expenses.filter(expense => expense.category === filterCategory) : expenses;
+    updateExpenseTable(filteredExpenses);
+}
+
+function sortExpenses() {
+    sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+    const sortedExpenses = [...expenses].sort((a, b) => sortDirection === 'asc' ? a.amount - b.amount : b.amount - a.amount);
+    updateExpenseTable(sortedExpenses);
+
+    document.getElementById('sort-icon').textContent = sortDirection === 'asc' ? '⬇️' : '⬆️';
 }
 
 function showToast(message, bgClass) {
